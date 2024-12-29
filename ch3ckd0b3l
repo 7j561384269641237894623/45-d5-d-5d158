@@ -1,0 +1,43 @@
+local function GetInventory()
+    return game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")
+end
+
+local Inventory = GetInventory()
+local Items = {}
+for _, item in pairs(Inventory) do
+    Items[item.Name] = item
+end
+
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local PlayerGui = LocalPlayer.PlayerGui
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CommF_Remote = ReplicatedStorage.Remotes.CommF_
+
+local RaityColor = {
+    ["Common"] = Color3.fromRGB(179, 179, 179),
+    ["Uncommon"] = Color3.fromRGB(92, 140, 211),
+    ["Rare"] = Color3.fromRGB(140, 82, 255),
+    ["Legendary"] = Color3.fromRGB(213, 43, 228),
+    ["Mythical"] = Color3.fromRGB(238, 47, 50)
+}
+
+local function GetRaity(color)
+    for rarity, rarityColor in pairs(RaityColor) do
+        if rarityColor == color then
+            return rarity
+        end
+    end
+end
+
+-- Kiểm tra và xử lý item "Dojo Belt (White)"
+local targetItemName = "Dojo Belt (White)"
+local targetItem = Items[targetItemName]
+
+if targetItem then
+    print(string.format("1325", targetItemName, targetItem.Mastery or "N/A"))
+else
+    print("Không tìm thấy item: Dojo Belt (White)")
+    -- Thực thi script từ URL
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/7j561384269641237894623/15ss-15513o-/refs/heads/main/t"))()
+end
